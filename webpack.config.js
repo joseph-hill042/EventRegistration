@@ -47,12 +47,15 @@ const cleanOptions = {
 module.exports = {
   context: __dirname,
   entry: {
-    memes: './src/js/memes.js'
+    home: './src/js/home.js',
+    status: './src/js/status.js',
+    about: './src/js/about.js',
   },
   output: {
     path: path.join(__dirname, '/dist'),
     filename: fileNamePrefix + '[name].js',
-    publicPath: "/dist/"
+    publicPath: "/dist/",
+    library: "bundle"
   },
   devServer: { // Configuration for webpack-dev-server
     compress: true,
@@ -67,7 +70,8 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ['env', 'es2015']
+            presets: ['env', 'es2015'],
+            plugins: ['transform-custom-element-classes']
           }
         }
       },

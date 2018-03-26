@@ -7,7 +7,7 @@
 
 require('dotenv').config();
 const webpack = require('webpack');
-const glob = require('glob');
+const glob = require('glob-all');
 const path = require('path');
 const fs = require('fs');
 const PurifyCSSPlugin = require('purifycss-webpack');
@@ -47,12 +47,15 @@ const cleanOptions = {
 module.exports = {
   context: __dirname,
   entry: {
-    memes: './src/js/memes.js'
+    home: './src/js/home.js',
+    status: './src/js/status.js',
+    about: './src/js/about.js',
   },
   output: {
     path: path.join(__dirname, '/dist'),
     filename: fileNamePrefix + '[name].js',
-    publicPath: "/dist/"
+    publicPath: "/dist/",
+    library: "bundle"
   },
   devServer: { // Configuration for webpack-dev-server
     compress: true,
@@ -68,6 +71,7 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: ['env', 'es2015']
+            //plugins: ['transform-custom-element-classes']
           }
         }
       },
@@ -134,7 +138,12 @@ module.exports = {
     }),
     extractLess, // Make sure ExtractTextPlugin instance is included in array before the PurifyCSSPlugin
     new PurifyCSSPlugin({
-      paths: glob.sync(path.join(__dirname, '/*.html')),
+      paths: glob.sync([
+        path.join(__dirname, '/*.html'),
+        path.join(__dirname, '/node_modules/jquery/dist/*.js'),
+        path.join(__dirname, '/node_modules/bootstrap/dist/js/*.js'),
+        path.join(__dirname, '/node_modules/toastr/toastr.js')
+      ]),
       minimize: true
     }),
     new webpack.DefinePlugin({ // Remove this plugin if you don't plan to define any global constants

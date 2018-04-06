@@ -13,6 +13,7 @@ const fs = require('fs');
 const PurifyCSSPlugin = require('purifycss-webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 /**
  * flag Used to check if the environment is production or not
@@ -146,6 +147,16 @@ module.exports = {
       ]),
       minimize: true
     }),
+    new BrowserSyncPlugin(
+      {
+      host: 'localhost',
+      port: 3000,
+      proxy: 'http://localhost:8080/'
+      },
+      {
+        files: 'EventRegistration/*.html'
+      },
+    ),
     new webpack.DefinePlugin({ // Remove this plugin if you don't plan to define any global constants
       ENVIRONMENT: JSON.stringify(process.env.NODE_ENV),
       SERVER_URL: JSON.stringify(process.env.SERVER_URL),

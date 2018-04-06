@@ -8,5 +8,3 @@ import '../css/styles.css';
  * Bootstrap JS File
  */
 import 'bootstrap';
-
-

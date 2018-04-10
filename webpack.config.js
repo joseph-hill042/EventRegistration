@@ -160,7 +160,8 @@ module.exports = {
     new webpack.DefinePlugin({ // Remove this plugin if you don't plan to define any global constants
       ENVIRONMENT: JSON.stringify(process.env.NODE_ENV),
       SERVER_URL: JSON.stringify(process.env.SERVER_URL),
-      GMAP_KEY: JSON.stringify(process.env.GMAP_KEY)
+      GMAP_KEY: JSON.stringify(process.env.GMAP_KEY),
+      API: JSON.stringify(process.env.API),
     })
   ]
 };

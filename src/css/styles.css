@@ -27,3 +27,7 @@ body {
   max-height: 50px;
   max-width: 50px;
 }
+
+#toast-container {
+  margin-top: 45px;
+}

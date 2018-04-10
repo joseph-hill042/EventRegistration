@@ -1,5 +1,8 @@
 import './general';
 import validateRegistrationForm from './services/formValidation/validateRegistrationForm';
+import apiCall from './services/api/apiCall';
+import toastr from 'toastr';
+import '../../node_modules/toastr/toastr.less';
 
 class Home {
   constructor() {
@@ -77,7 +80,32 @@ class Home {
     }
   }
 
+  resetForm() {
+    this.$username.value = '';
+    this.$email.value = '';
+    this.$phone.value = '';
+    this.$age.value = '';
+    this.$profession.value = 'school';
+    this.$experience.checked = true;
+    this.$comment.value = '';
+  }
+
   submitForm(formValues) {
+    this.$submit.classList.add('hidden');
+    this.$loadingIndicator.classList.remove('hidden');
+
+    apiCall('registration', formValues, 'POST')
+      .then(response => {
+        this.$submit.classList.remove('hidden');
+        this.$loadingIndicator.classList.add('hidden');
+        toastr.success(response.message);
+        this.resetForm(); // For clearing the form
+      })
+      .catch(() => {
+        this.$submit.classList.remove('hidden');
+        this.$loadingIndicator.classList.add('hidden');
+        toastr.error('Error!');
+      });
   }
 }
 

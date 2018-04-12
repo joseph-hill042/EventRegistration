@@ -98,10 +98,11 @@ class Home {
       .then(response => {
         this.$submit.classList.remove('hidden');
         this.$loadingIndicator.classList.add('hidden');
-        toastr.success(response.message);
+        toastr.success('Registration was a success!');
         this.resetForm(); // For clearing the form
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         this.$submit.classList.remove('hidden');
         this.$loadingIndicator.classList.add('hidden');
         toastr.error('Error!');

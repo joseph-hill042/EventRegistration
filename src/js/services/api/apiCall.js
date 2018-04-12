@@ -13,12 +13,13 @@ export default function apiCall(route, body = {}, method='GET') {
       mode: 'cors',
       headers,
     };
-    if (method !== 'GET') requestDetails.body = JSON.stringify(body);
+    if (method === 'POST') requestDetails.body = JSON.stringify(body);
 
     function handleErrors(res) {
       if (res.ok) {
         res.message = 'Registration successful!';
-        return res;
+        console.log(res);
+        return res.json();
       } else {
         throw Error(res.statusText)
       }

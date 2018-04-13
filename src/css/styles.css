@@ -31,3 +31,8 @@ body {
 #toast-container {
   margin-top: 45px;
 }
+
+.chart-area {
+  margin: 25px;
+  max-width: 600px;
+}

@@ -21,6 +21,7 @@ class Status {
     this.statisticData = []; // variable to store data from the server
 
     this.loadData();
+    this.addEventListeners();
   }
 
   loadData() {
@@ -31,8 +32,6 @@ class Status {
         this.$tabArea.classList.remove('hidden');
         this.$chartArea.classList.remove('hidden');
         this.loadExperience();
-        this.loadProfession();
-        this.loadAge();
       })
       .catch(() => {
         this.$loadingIndicator.classList.add('hidden');
@@ -65,7 +64,12 @@ class Status {
     return [beginner, intermediate, advanced];
   }
 
-  loadExperience() {
+  loadExperience(event = null) {
+    if(event) event.preventDefault();
+    this.hideCharts();
+    this.$experienceCanvas.classList.remove('hidden');
+    this.$experienceTab.parentElement.classList.add('active');
+
     const data = {
       datasets: [{
         data: this.filterByExp(this.statisticData),
@@ -116,7 +120,12 @@ class Status {
     return [schoolStudent, collegeStudent, trainee, employee];
   }
 
-  loadProfession() {
+  loadProfession(event = null) {
+    if(event) event.preventDefault();
+    this.hideCharts();
+    this.$professionCanvas.classList.remove('hidden');
+    this.$professionTab.parentElement.classList.add('active');
+
     const data = {
       datasets: [{
         data: this.filterbyProf(this.statisticData),
@@ -165,7 +174,12 @@ class Status {
     return [tenToFifteen, fifteenToTwenty, twentyToTwentyFive];
   }
 
-  loadAge() {
+  loadAge(event = null) {
+    if(event) event.preventDefault();
+    this.hideCharts();
+    this.$ageCanvas.classList.remove('hidden');
+    this.$ageTab.parentElement.classList.add('active');
+
     const data = {
       datasets: [{
         data: this.filterByAge(this.statisticData),
@@ -190,6 +204,21 @@ class Status {
       type: 'pie',
       data,
     });
+  }
+
+  hideCharts() {
+    this.$experienceTab.parentElement.classList.remove('active');
+    this.$professionTab.parentElement.classList.remove('active');
+    this.$ageTab.parentElement.classList.remove('active');
+    this.$ageCanvas.classList.add('hidden');
+    this.$professionCanvas.classList.add('hidden');
+    this.$experienceCanvas.classList.add('hidden');
+  }
+
+  addEventListeners() {
+    this.$experienceTab.addEventListener('click', this.loadExperience.bind(this));
+    this.$professionTab.addEventListener('click', this.loadProfession.bind(this));
+    this.$ageTab.addEventListener('click', this.loadAge.bind(this));
   }
 }
 

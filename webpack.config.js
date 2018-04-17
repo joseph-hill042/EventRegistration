@@ -180,9 +180,9 @@ if(!isProduction) {
  */
 if(isProduction) {
   module.exports.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true // use false if you want to disable source maps in production
-    }),
+    //new webpack.optimize.UglifyJsPlugin({
+      //sourceMap: true // use false if you want to disable source maps in production
+    //}),
     function() { // Create a manifest.json file that contain the hashed file names of generated static resources
       this.plugin("done", function(status) {
         fs.writeFileSync(
